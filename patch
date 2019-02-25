@@ -1,0 +1,2438 @@
+commit 6c5d6fcb36214470f0d7944af4da5e20c5170f07
+Author: barons03 <bkrisjanis@gmail.com>
+Date:   Mon Feb 25 19:31:59 2019 +0200
+
+    Initial Commit
+
+diff --git a/.formatter.exs b/.formatter.exs
+new file mode 100644
+index 0000000..8a6391c
+--- /dev/null
++++ b/.formatter.exs
+@@ -0,0 +1,5 @@
++[
++  import_deps: [:ecto, :phoenix],
++  inputs: ["*.{ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{ex,exs}"],
++  subdirectories: ["priv/*/migrations"]
++]
+diff --git a/.gitignore b/.gitignore
+new file mode 100644
+index 0000000..fa8e1e3
+--- /dev/null
++++ b/.gitignore
+@@ -0,0 +1,36 @@
++# The directory Mix will write compiled artifacts to.
++/_build/
++
++# If you run "mix test --cover", coverage assets end up here.
++/cover/
++
++# The directory Mix downloads your dependencies sources to.
++/deps/
++
++# Where 3rd-party dependencies like ExDoc output generated docs.
++/doc/
++
++# Ignore .fetch files in case you like to edit your project deps locally.
++/.fetch
++
++# If the VM crashes, it generates a dump, let's ignore it too.
++erl_crash.dump
++
++# Also ignore archive artifacts (built via "mix archive.build").
++*.ez
++
++# Ignore package tarball (built via "mix hex.build").
++twotter-*.tar
++
++# Since we are building assets from assets/,
++# we ignore priv/static. You may want to comment
++# this depending on your deployment strategy.
++/priv/static/
++
++# Files matching config/*.secret.exs pattern contain sensitive
++# data and you should not commit them into version control.
++#
++# Alternatively, you may comment the line below and commit the
++# secrets files as long as you replace their contents by environment
++# variables.
++/config/*.secret.exs
+diff --git a/.idea/libraries/argon2_elixir.xml b/.idea/libraries/argon2_elixir.xml
+new file mode 100644
+index 0000000..a1060ec
+--- /dev/null
++++ b/.idea/libraries/argon2_elixir.xml
+@@ -0,0 +1,12 @@
++<component name="libraryTable">
++  <library name="argon2_elixir" type="mix">
++    <CLASSES>
++      <root url="file://$PROJECT_DIR$/_build/dev/lib/argon2_elixir/ebin" />
++    </CLASSES>
++    <SOURCES>
++      <root url="file://$PROJECT_DIR$/deps/argon2_elixir/lib" />
++      <root url="file://$PROJECT_DIR$/deps/argon2_elixir/priv" />
++      <root url="file://$PROJECT_DIR$/deps/argon2_elixir/c_src" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/comeonin.xml b/.idea/libraries/comeonin.xml
+new file mode 100644
+index 0000000..175fc60
+--- /dev/null
++++ b/.idea/libraries/comeonin.xml
+@@ -0,0 +1,10 @@
++<component name="libraryTable">
++  <library name="comeonin" type="mix">
++    <CLASSES>
++      <root url="file://$PROJECT_DIR$/_build/dev/lib/comeonin/ebin" />
++    </CLASSES>
++    <SOURCES>
++      <root url="file://$PROJECT_DIR$/deps/comeonin/lib" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/connection.xml b/.idea/libraries/connection.xml
+new file mode 100644
+index 0000000..b79e93a
+--- /dev/null
++++ b/.idea/libraries/connection.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="connection" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/cowboy.xml b/.idea/libraries/cowboy.xml
+new file mode 100644
+index 0000000..72887e2
+--- /dev/null
++++ b/.idea/libraries/cowboy.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="cowboy" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/db_connection.xml b/.idea/libraries/db_connection.xml
+new file mode 100644
+index 0000000..42238cb
+--- /dev/null
++++ b/.idea/libraries/db_connection.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="db_connection" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/decimal.xml b/.idea/libraries/decimal.xml
+new file mode 100644
+index 0000000..960d473
+--- /dev/null
++++ b/.idea/libraries/decimal.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="decimal" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/ecto.xml b/.idea/libraries/ecto.xml
+new file mode 100644
+index 0000000..281c563
+--- /dev/null
++++ b/.idea/libraries/ecto.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="ecto" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/ecto_sql.xml b/.idea/libraries/ecto_sql.xml
+new file mode 100644
+index 0000000..b30c2a4
+--- /dev/null
++++ b/.idea/libraries/ecto_sql.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="ecto_sql" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/elixir_make.xml b/.idea/libraries/elixir_make.xml
+new file mode 100644
+index 0000000..662081c
+--- /dev/null
++++ b/.idea/libraries/elixir_make.xml
+@@ -0,0 +1,10 @@
++<component name="libraryTable">
++  <library name="elixir_make" type="mix">
++    <CLASSES>
++      <root url="file://$PROJECT_DIR$/_build/dev/lib/elixir_make/ebin" />
++    </CLASSES>
++    <SOURCES>
++      <root url="file://$PROJECT_DIR$/deps/elixir_make/lib" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/elixir_uuid.xml b/.idea/libraries/elixir_uuid.xml
+new file mode 100644
+index 0000000..749005d
+--- /dev/null
++++ b/.idea/libraries/elixir_uuid.xml
+@@ -0,0 +1,10 @@
++<component name="libraryTable">
++  <library name="elixir_uuid" type="mix">
++    <CLASSES>
++      <root url="file://$PROJECT_DIR$/_build/dev/lib/elixir_uuid/ebin" />
++    </CLASSES>
++    <SOURCES>
++      <root url="file://$PROJECT_DIR$/deps/elixir_uuid/lib" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/gettext.xml b/.idea/libraries/gettext.xml
+new file mode 100644
+index 0000000..c93fe31
+--- /dev/null
++++ b/.idea/libraries/gettext.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="gettext" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/jason.xml b/.idea/libraries/jason.xml
+new file mode 100644
+index 0000000..af9a654
+--- /dev/null
++++ b/.idea/libraries/jason.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="jason" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/mime.xml b/.idea/libraries/mime.xml
+new file mode 100644
+index 0000000..f82b07c
+--- /dev/null
++++ b/.idea/libraries/mime.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="mime" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/nebulex.xml b/.idea/libraries/nebulex.xml
+new file mode 100644
+index 0000000..a8b4338
+--- /dev/null
++++ b/.idea/libraries/nebulex.xml
+@@ -0,0 +1,10 @@
++<component name="libraryTable">
++  <library name="nebulex" type="mix">
++    <CLASSES>
++      <root url="file://$PROJECT_DIR$/_build/dev/lib/nebulex/ebin" />
++    </CLASSES>
++    <SOURCES>
++      <root url="file://$PROJECT_DIR$/deps/nebulex/lib" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/phoenix.xml b/.idea/libraries/phoenix.xml
+new file mode 100644
+index 0000000..95f4b6a
+--- /dev/null
++++ b/.idea/libraries/phoenix.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="phoenix" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/phoenix_ecto.xml b/.idea/libraries/phoenix_ecto.xml
+new file mode 100644
+index 0000000..4f71baf
+--- /dev/null
++++ b/.idea/libraries/phoenix_ecto.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="phoenix_ecto" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/phoenix_pubsub.xml b/.idea/libraries/phoenix_pubsub.xml
+new file mode 100644
+index 0000000..2ee03dc
+--- /dev/null
++++ b/.idea/libraries/phoenix_pubsub.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="phoenix_pubsub" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/plug.xml b/.idea/libraries/plug.xml
+new file mode 100644
+index 0000000..fe95da5
+--- /dev/null
++++ b/.idea/libraries/plug.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="plug" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/plug_cowboy.xml b/.idea/libraries/plug_cowboy.xml
+new file mode 100644
+index 0000000..2a125e9
+--- /dev/null
++++ b/.idea/libraries/plug_cowboy.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="plug_cowboy" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/plug_crypto.xml b/.idea/libraries/plug_crypto.xml
+new file mode 100644
+index 0000000..ca7f0d7
+--- /dev/null
++++ b/.idea/libraries/plug_crypto.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="plug_crypto" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/postgrex.xml b/.idea/libraries/postgrex.xml
+new file mode 100644
+index 0000000..a9dc854
+--- /dev/null
++++ b/.idea/libraries/postgrex.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="postgrex" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/shards.xml b/.idea/libraries/shards.xml
+new file mode 100644
+index 0000000..4dec698
+--- /dev/null
++++ b/.idea/libraries/shards.xml
+@@ -0,0 +1,8 @@
++<component name="libraryTable">
++  <library name="shards" type="mix">
++    <CLASSES />
++    <SOURCES>
++      <root url="file://$PROJECT_DIR$/deps/shards/src" />
++    </SOURCES>
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/libraries/telemetry.xml b/.idea/libraries/telemetry.xml
+new file mode 100644
+index 0000000..34770d3
+--- /dev/null
++++ b/.idea/libraries/telemetry.xml
+@@ -0,0 +1,6 @@
++<component name="libraryTable">
++  <library name="telemetry" type="mix">
++    <CLASSES />
++    <SOURCES />
++  </library>
++</component>
+\ No newline at end of file
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+new file mode 100644
+index 0000000..28a804d
+--- /dev/null
++++ b/.idea/misc.xml
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="JavaScriptSettings">
++    <option name="languageLevel" value="ES6" />
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/modules.xml b/.idea/modules.xml
+new file mode 100644
+index 0000000..bf26a7d
+--- /dev/null
++++ b/.idea/modules.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ProjectModuleManager">
++    <modules>
++      <module fileurl="file://$PROJECT_DIR$/.idea/twotter.iml" filepath="$PROJECT_DIR$/.idea/twotter.iml" />
++    </modules>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/.idea/twotter.iml b/.idea/twotter.iml
+new file mode 100644
+index 0000000..1f3e615
+--- /dev/null
++++ b/.idea/twotter.iml
+@@ -0,0 +1,46 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<module type="WEB_MODULE" version="4">
++  <component name="FacetManager">
++    <facet type="Elixir" name="Elixir facet">
++      <configuration sdkName="Elixir 1.7.4" />
++    </facet>
++  </component>
++  <component name="NewModuleRootManager">
++    <content url="file://$MODULE_DIR$">
++      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
++      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/argon2_elixir" />
++      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/comeonin" />
++      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixir_make" />
++      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/elixir_uuid" />
++      <excludeFolder url="file://$MODULE_DIR$/_build/dev/lib/nebulex" />
++      <excludeFolder url="file://$MODULE_DIR$/temp" />
++      <excludeFolder url="file://$MODULE_DIR$/tmp" />
++    </content>
++    <orderEntry type="inheritedJdk" />
++    <orderEntry type="sourceFolder" forTests="false" />
++    <orderEntry type="library" name="Elixir 1.7.4" level="application" />
++    <orderEntry type="library" name="phoenix" level="project" />
++    <orderEntry type="library" name="plug_cowboy" level="project" />
++    <orderEntry type="library" name="plug" level="project" />
++    <orderEntry type="library" name="mime" level="project" />
++    <orderEntry type="library" name="plug_crypto" level="project" />
++    <orderEntry type="library" name="cowboy" level="project" />
++    <orderEntry type="library" name="phoenix_pubsub" level="project" />
++    <orderEntry type="library" name="jason" level="project" />
++    <orderEntry type="library" name="gettext" level="project" />
++    <orderEntry type="library" name="phoenix_ecto" level="project" />
++    <orderEntry type="library" name="ecto" level="project" />
++    <orderEntry type="library" name="decimal" level="project" />
++    <orderEntry type="library" name="ecto_sql" level="project" />
++    <orderEntry type="library" name="telemetry" level="project" />
++    <orderEntry type="library" name="db_connection" level="project" />
++    <orderEntry type="library" name="connection" level="project" />
++    <orderEntry type="library" name="postgrex" level="project" />
++    <orderEntry type="library" name="comeonin" level="project" />
++    <orderEntry type="library" name="argon2_elixir" level="project" />
++    <orderEntry type="library" name="elixir_make" level="project" />
++    <orderEntry type="library" name="elixir_uuid" level="project" />
++    <orderEntry type="library" name="nebulex" level="project" />
++    <orderEntry type="library" name="shards" level="project" />
++  </component>
++</module>
+\ No newline at end of file
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+new file mode 100644
+index 0000000..206d0ed
+--- /dev/null
++++ b/.idea/workspace.xml
+@@ -0,0 +1,330 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="ChangeListManager">
++    <list default="true" id="c0b3904f-296c-45de-a1ef-aaa525faea51" name="Default Changelist" comment="" />
++    <ignored path="$PROJECT_DIR$/.tmp/" />
++    <ignored path="$PROJECT_DIR$/temp/" />
++    <ignored path="$PROJECT_DIR$/tmp/" />
++    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
++    <option name="SHOW_DIALOG" value="false" />
++    <option name="HIGHLIGHT_CONFLICTS" value="true" />
++    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
++    <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="FUSProjectUsageTrigger">
++    <session id="-458549041">
++      <usages-collector id="statistics.lifecycle.project">
++        <counts>
++          <entry key="project.closed" value="2" />
++          <entry key="project.open.time.21" value="1" />
++          <entry key="project.open.time.53" value="1" />
++          <entry key="project.open.time.8" value="1" />
++          <entry key="project.opened" value="3" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.extensions.edit">
++        <counts>
++          <entry key="ex" value="2064" />
++          <entry key="exs" value="97" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.types.edit">
++        <counts>
++          <entry key="Elixir Script" value="97" />
++          <entry key="Elixir file" value="2064" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.extensions.open">
++        <counts>
++          <entry key="ex" value="10" />
++          <entry key="exs" value="6" />
++        </counts>
++      </usages-collector>
++      <usages-collector id="statistics.file.types.open">
++        <counts>
++          <entry key="Elixir Script" value="6" />
++          <entry key="Elixir file" value="10" />
++        </counts>
++      </usages-collector>
++    </session>
++  </component>
++  <component name="FileEditorManager">
++    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
++      <file pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/lib/twotter/accounts/user.ex">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="391">
++              <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
++            </state>
++          </provider>
++        </entry>
++      </file>
++      <file pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/lib/twotter/twoots/twoot.ex">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="529">
++              <caret line="23" selection-start-line="23" selection-end-line="23" />
++            </state>
++          </provider>
++        </entry>
++      </file>
++      <file pinned="false" current-in-tab="false">
++        <entry file="file://$PROJECT_DIR$/lib/twotter/twoots/twoots.ex">
++          <provider selected="true" editor-type-id="text-editor" />
++        </entry>
++      </file>
++      <file pinned="false" current-in-tab="true">
++        <entry file="file://$PROJECT_DIR$/lib/twotter_web/router.ex">
++          <provider selected="true" editor-type-id="text-editor">
++            <state relative-caret-position="138">
++              <caret line="6" selection-start-line="6" selection-end-line="6" />
++            </state>
++          </provider>
++        </entry>
++      </file>
++    </leaf>
++  </component>
++  <component name="IdeDocumentHistory">
++    <option name="CHANGED_PATHS">
++      <list>
++        <option value="$PROJECT_DIR$/config/dev.exs" />
++        <option value="$PROJECT_DIR$/priv/repo/migrations/20181212105319_add_password_field_to_users_table.exs" />
++        <option value="$PROJECT_DIR$/lib/twotter/accounts/user.ex" />
++        <option value="$PROJECT_DIR$/config/prod.exs" />
++        <option value="$PROJECT_DIR$/mix.exs" />
++        <option value="$PROJECT_DIR$/lib/twotter/application.ex" />
++        <option value="$PROJECT_DIR$/lib/twotter/accounts/auth.ex" />
++        <option value="$PROJECT_DIR$/lib/twotter/accounts/accounts.ex" />
++        <option value="$PROJECT_DIR$/lib/twotter/twoots/twoot.ex" />
++      </list>
++    </option>
++  </component>
++  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
++  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
++  <component name="JsGulpfileManager">
++    <detection-done>true</detection-done>
++    <sorting>DEFINITION_ORDER</sorting>
++  </component>
++  <component name="NodePackageJsonFileManager">
++    <packageJsonPaths>
++      <path value="$PROJECT_DIR$/deps/phoenix/assets/package.json" />
++      <path value="$PROJECT_DIR$/deps/phoenix/package.json" />
++    </packageJsonPaths>
++  </component>
++  <component name="ProjectFrameBounds" extendedState="6">
++    <option name="x" value="369" />
++    <option name="width" value="1001" />
++    <option name="height" value="745" />
++  </component>
++  <component name="ProjectView">
++    <navigator proportions="" version="1">
++      <foldersAlwaysOnTop value="true" />
++    </navigator>
++    <panes>
++      <pane id="ProjectPane">
++        <subPane>
++          <expand>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++              <item name="config" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++              <item name="lib" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++              <item name="lib" type="462c0819:PsiDirectoryNode" />
++              <item name="auth" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++              <item name="lib" type="462c0819:PsiDirectoryNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++              <item name="lib" type="462c0819:PsiDirectoryNode" />
++              <item name="twotter_web" type="462c0819:PsiDirectoryNode" />
++            </path>
++            <path>
++              <item name="twotter" type="b2602c69:ProjectViewProjectNode" />
++              <item name="twotter" type="462c0819:PsiDirectoryNode" />
++              <item name="priv" type="462c0819:PsiDirectoryNode" />
++            </path>
++          </expand>
++          <select />
++        </subPane>
++      </pane>
++      <pane id="Scope" />
++    </panes>
++  </component>
++  <component name="PropertiesComponent">
++    <property name="WebServerToolWindowFactoryState" value="false" />
++    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SimplePhpApp" />
++    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
++    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
++    <property name="settings.editor.selected.configurable" value="language.elixir" />
++  </component>
++  <component name="RunDashboard">
++    <option name="ruleStates">
++      <list>
++        <RuleState>
++          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
++        </RuleState>
++        <RuleState>
++          <option name="name" value="StatusDashboardGroupingRule" />
++        </RuleState>
++      </list>
++    </option>
++  </component>
++  <component name="SvnConfiguration">
++    <configuration />
++  </component>
++  <component name="TaskManager">
++    <task active="true" id="Default" summary="Default task">
++      <changelist id="c0b3904f-296c-45de-a1ef-aaa525faea51" name="Default Changelist" comment="" />
++      <created>1544611126981</created>
++      <option name="number" value="Default" />
++      <option name="presentableId" value="Default" />
++      <updated>1544611126981</updated>
++      <workItem from="1544611133310" duration="10855000" />
++      <workItem from="1545035709241" duration="2903000" />
++      <workItem from="1545144771523" duration="686000" />
++    </task>
++    <servers />
++  </component>
++  <component name="TimeTrackingManager">
++    <option name="totallyTimeSpent" value="14444000" />
++  </component>
++  <component name="ToolWindowManager">
++    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
++    <layout>
++      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18381241" />
++      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
++      <window_info id="Favorites" order="2" side_tool="true" />
++      <window_info anchor="bottom" id="Message" order="0" />
++      <window_info anchor="bottom" id="Find" order="1" />
++      <window_info anchor="bottom" id="Run" order="2" />
++      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
++      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
++      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
++      <window_info anchor="bottom" id="TODO" order="6" />
++      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
++      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
++      <window_info anchor="bottom" id="Version Control" order="9" show_stripe_button="false" />
++      <window_info anchor="bottom" id="Terminal" order="10" />
++      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
++      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
++      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
++      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
++      <window_info anchor="right" id="Database" order="3" />
++    </layout>
++  </component>
++  <component name="TypeScriptGeneratedFilesManager">
++    <option name="version" value="1" />
++  </component>
++  <component name="VcsContentAnnotationSettings">
++    <option name="myLimit" value="2678400000" />
++  </component>
++  <component name="editorHistoryManager">
++    <entry file="file://$PROJECT_DIR$/config/dev.exs">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="348">
++          <caret line="52" column="23" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="23" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/priv/repo/migrations/20181212104712_create_users.exs">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="92">
++          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="8" selection-end-column="7" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/priv/repo/migrations/20181212105319_add_password_field_to_users_table.exs">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="207">
++          <caret line="9" selection-start-line="9" selection-end-line="9" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/config/prod.exs">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="46">
++          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/config/config.exs">
++      <provider selected="true" editor-type-id="text-editor" />
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/application.ex">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="322">
++          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/auth/cache.ex">
++      <provider selected="true" editor-type-id="text-editor" />
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/accounts/auth.ex">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="391">
++          <caret line="20" selection-start-line="20" selection-end-line="20" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/accounts/accounts.ex">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="920">
++          <caret line="40" column="25" lean-forward="true" selection-start-line="40" selection-start-column="25" selection-end-line="40" selection-end-column="25" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/repo.ex">
++      <provider selected="true" editor-type-id="text-editor" />
++    </entry>
++    <entry file="file://$PROJECT_DIR$/mix.exs">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="460">
++          <caret line="47" column="5" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/accounts/user.ex">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="391">
++          <caret line="17" column="61" selection-start-line="17" selection-start-column="61" selection-end-line="17" selection-end-column="61" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/twoots/twoot.ex">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="529">
++          <caret line="23" selection-start-line="23" selection-end-line="23" />
++        </state>
++      </provider>
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter/twoots/twoots.ex">
++      <provider selected="true" editor-type-id="text-editor" />
++    </entry>
++    <entry file="file://$PROJECT_DIR$/lib/twotter_web/router.ex">
++      <provider selected="true" editor-type-id="text-editor">
++        <state relative-caret-position="138">
++          <caret line="6" selection-start-line="6" selection-end-line="6" />
++        </state>
++      </provider>
++    </entry>
++  </component>
++</project>
+\ No newline at end of file
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..b5c89ce
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1,19 @@
++# Twotter
++
++To start your Phoenix server:
++
++  * Install dependencies with `mix deps.get`
++  * Create and migrate your database with `mix ecto.setup`
++  * Start Phoenix endpoint with `mix phx.server`
++
++Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
++
++Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
++
++## Learn more
++
++  * Official website: http://www.phoenixframework.org/
++  * Guides: https://hexdocs.pm/phoenix/overview.html
++  * Docs: https://hexdocs.pm/phoenix
++  * Mailing list: http://groups.google.com/group/phoenix-talk
++  * Source: https://github.com/phoenixframework/phoenix
+diff --git a/config/config.exs b/config/config.exs
+new file mode 100644
+index 0000000..389f287
+--- /dev/null
++++ b/config/config.exs
+@@ -0,0 +1,34 @@
++# This file is responsible for configuring your application
++# and its dependencies with the aid of the Mix.Config module.
++#
++# This configuration file is loaded before any dependency and
++# is restricted to this project.
++
++# General application configuration
++use Mix.Config
++
++config :twotter, Auth.Cache,
++  gc_interval: 86_400 # 24 hrs
++
++
++config :twotter,
++  ecto_repos: [Twotter.Repo]
++
++# Configures the endpoint
++config :twotter, TwotterWeb.Endpoint,
++  url: [host: "localhost"],
++  secret_key_base: "a1yIR3mgD4uY3DX7ulK8LHyi+r8d1N11nPrs5I4F6cuQWN3uztTuDDZ+3P7H+ZAj",
++  render_errors: [view: TwotterWeb.ErrorView, accepts: ~w(json)],
++  pubsub: [name: Twotter.PubSub, adapter: Phoenix.PubSub.PG2]
++
++# Configures Elixir's Logger
++config :logger, :console,
++  format: "$time $metadata[$level] $message\n",
++  metadata: [:request_id]
++
++# Use Jason for JSON parsing in Phoenix
++config :phoenix, :json_library, Jason
++
++# Import environment specific config. This must remain at the bottom
++# of this file so it overrides the configuration defined above.
++import_config "#{Mix.env()}.exs"
+diff --git a/config/dev.exs b/config/dev.exs
+new file mode 100644
+index 0000000..4a057a9
+--- /dev/null
++++ b/config/dev.exs
+@@ -0,0 +1,56 @@
++use Mix.Config
++
++# For development, we disable any cache and enable
++# debugging and code reloading.
++#
++# The watchers configuration can be used to run external
++# watchers to your application. For example, we use it
++# with webpack to recompile .js and .css sources.
++config :twotter, TwotterWeb.Endpoint,
++  http: [port: 4000],
++  debug_errors: true,
++  code_reloader: true,
++  check_origin: false,
++  watchers: []
++
++# ## SSL Support
++#
++# In order to use HTTPS in development, a self-signed
++# certificate can be generated by running the following
++# Mix task:
++#
++#     mix phx.gen.cert
++#
++# Note that this task requires Erlang/OTP 20 or later.
++# Run `mix help phx.gen.cert` for more information.
++#
++# The `http:` config above can be replaced with:
++#
++#     https: [
++#       port: 4001,
++#       cipher_suite: :strong,
++#       keyfile: "priv/cert/selfsigned_key.pem",
++#       certfile: "priv/cert/selfsigned.pem"
++#     ],
++#
++# If desired, both `http:` and `https:` keys can be
++# configured to run both http and https servers on
++# different ports.
++
++# Do not include metadata nor timestamps in development logs
++config :logger, :console, format: "[$level] $message\n"
++
++# Set a higher stacktrace during development. Avoid configuring such
++# in production as building large stacktraces may be expensive.
++config :phoenix, :stacktrace_depth, 20
++
++# Initialize plugs at runtime for faster development compilation
++config :phoenix, :plug_init_mode, :runtime
++
++# Configure your database
++config :twotter, Twotter.Repo,
++  username: "postgres",
++  password: "kb25993949",
++  database: "twotter_dev",
++  hostname: "localhost",
++  pool_size: 10
+diff --git a/config/prod.exs b/config/prod.exs
+new file mode 100644
+index 0000000..9f026b3
+--- /dev/null
++++ b/config/prod.exs
+@@ -0,0 +1,73 @@
++use Mix.Config
++
++# Barons gejs
++
++# For production, don't forget to configure the url host
++# to something meaningful, Phoenix uses this information
++# when generating URLs.
++#
++# Note we also include the path to a cache manifest
++# containing the digested version of static files. This
++# manifest is generated by the `mix phx.digest` task,
++# which you should run after static files are built and
++# before starting your production server.
++config :twotter, TwotterWeb.Endpoint,
++  http: [:inet6, port: System.get_env("PORT") || 4000],
++  url: [host: "example.com", port: 80],
++  cache_static_manifest: "priv/static/cache_manifest.json"
++
++# Do not print debug messages in production
++config :logger, level: :info
++
++# ## SSL Support
++#
++# To get SSL working, you will need to add the `https` key
++# to the previous section and set your `:url` port to 443:
++#
++#     config :twotter, TwotterWeb.Endpoint,
++#       ...
++#       url: [host: "example.com", port: 443],
++#       https: [
++#         :inet6,
++#         port: 443,
++#         cipher_suite: :strong,
++#         keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
++#         certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
++#       ]
++#
++# The `cipher_suite` is set to `:strong` to support only the
++# latest and more secure SSL ciphers. This means old browsers
++# and clients may not be supported. You can set it to
++# `:compatible` for wider support.
++#
++# `:keyfile` and `:certfile` expect an absolute path to the key
++# and cert in disk or a relative path inside priv, for example
++# "priv/ssl/server.key". For all supported SSL configuration
++# options, see https://hexdocs.pm/plug/Plug.SSL.html#configure/1
++#
++# We also recommend setting `force_ssl` in your endpoint, ensuring
++# no data is ever sent via http, always redirecting to https:
++#
++#     config :twotter, TwotterWeb.Endpoint,
++#       force_ssl: [hsts: true]
++#
++# Check `Plug.SSL` for all available options in `force_ssl`.
++
++# ## Using releases (distillery)
++#
++# If you are doing OTP releases, you need to instruct Phoenix
++# to start the server for all endpoints:
++#
++#     config :phoenix, :serve_endpoints, true
++#
++# Alternatively, you can configure exactly which server to
++# start per endpoint:
++#
++#     config :twotter, TwotterWeb.Endpoint, server: true
++#
++# Note you can't rely on `System.get_env/1` when using releases.
++# See the releases documentation accordingly.
++
++# Finally import the config/prod.secret.exs which should be versioned
++# separately.
++import_config "prod.secret.exs"
+diff --git a/config/test.exs b/config/test.exs
+new file mode 100644
+index 0000000..523246d
+--- /dev/null
++++ b/config/test.exs
+@@ -0,0 +1,18 @@
++use Mix.Config
++
++# We don't run a server during test. If one is required,
++# you can enable the server option below.
++config :twotter, TwotterWeb.Endpoint,
++  http: [port: 4002],
++  server: false
++
++# Print only warnings and errors during test
++config :logger, level: :warn
++
++# Configure your database
++config :twotter, Twotter.Repo,
++  username: "postgres",
++  password: "postgres",
++  database: "twotter_test",
++  hostname: "localhost",
++  pool: Ecto.Adapters.SQL.Sandbox
+diff --git a/lib/auth/cache.ex b/lib/auth/cache.ex
+new file mode 100644
+index 0000000..554cd5b
+--- /dev/null
++++ b/lib/auth/cache.ex
+@@ -0,0 +1,5 @@
++defmodule Auth.Cache do
++  use Nebulex.Cache,
++    otp_app: :twotter,
++    adapter: Nebulex.Adapters.Local
++end
+diff --git a/lib/twotter.ex b/lib/twotter.ex
+new file mode 100644
+index 0000000..bf51647
+--- /dev/null
++++ b/lib/twotter.ex
+@@ -0,0 +1,9 @@
++defmodule Twotter do
++  @moduledoc """
++  Twotter keeps the contexts that define your domain
++  and business logic.
++
++  Contexts are also responsible for managing your data, regardless
++  if it comes from the database, an external API or others.
++  """
++end
+diff --git a/lib/twotter/accounts/accounts.ex b/lib/twotter/accounts/accounts.ex
+new file mode 100644
+index 0000000..8c924c9
+--- /dev/null
++++ b/lib/twotter/accounts/accounts.ex
+@@ -0,0 +1,121 @@
++defmodule Twotter.Accounts do
++  @moduledoc """
++  The Accounts context.
++  """
++
++  import Ecto.Query, warn: false
++  alias Twotter.Repo
++
++  alias Twotter.Accounts.User
++
++  @doc """
++  Returns the list of users.
++
++  ## Examples
++
++      iex> list_users()
++      [%User{}, ...]
++
++  """
++  def list_users do
++    Repo.all(User)
++  end
++
++  def list_user_usernames do
++    query = from u in User,
++       select: u.username
++
++     Repo.all(query)
++  end
++
++  @doc """
++  Gets a single user.
++
++  Raises `Ecto.NoResultsError` if the User does not exist.
++
++  ## Examples
++
++      iex> get_user!(123)
++      %User{}
++
++      iex> get_user!(456)
++      ** (Ecto.NoResultsError)
++
++  """
++  def get_user!(id), do: Repo.get!(User, id)
++
++  def get_user(id) do
++    Repo.get(User, id)
++  end
++
++  def get_user_by_username(username) do
++    query = from u in User,
++    where: u.username == ^username
++    Repo.one(query)
++  end
++
++  @doc """
++  Creates a user.
++
++  ## Examples
++
++      iex> create_user(%{field: value})
++      {:ok, %User{}}
++
++      iex> create_user(%{field: bad_value})
++      {:error, %Ecto.Changeset{}}
++
++  """
++  def create_user(attrs \\ %{}) do
++    %User{}
++    |> User.changeset(attrs)
++    |> Repo.insert()
++  end
++
++  @doc """
++  Updates a user.
++
++  ## Examples
++
++      iex> update_user(user, %{field: new_value})
++      {:ok, %User{}}
++
++      iex> update_user(user, %{field: bad_value})
++      {:error, %Ecto.Changeset{}}
++
++  """
++  def update_user(%User{} = user, attrs) do
++    user
++    |> User.changeset(attrs)
++    |> Repo.update()
++  end
++
++  @doc """
++  Deletes a User.
++
++  ## Examples
++
++      iex> delete_user(user)
++      {:ok, %User{}}
++
++      iex> delete_user(user)
++      {:error, %Ecto.Changeset{}}
++
++  """
++  def delete_user(%User{} = user) do
++    Repo.delete(user)
++  end
++
++  @doc """
++  Returns an `%Ecto.Changeset{}` for tracking user changes.
++
++  ## Examples
++
++      iex> change_user(user)
++      %Ecto.Changeset{source: %User{}}
++
++  """
++  def change_user(%User{} = user) do
++    User.changeset(user, %{})
++  end
++end
+diff --git a/lib/twotter/accounts/auth.ex b/lib/twotter/accounts/auth.ex
+new file mode 100644
+index 0000000..0a43fb7
+--- /dev/null
++++ b/lib/twotter/accounts/auth.ex
+@@ -0,0 +1,52 @@
++defmodule Twotter.Accounts.Auth do
++  alias Twotter.Accounts.User
++  alias Comeonin.Argon2
++  alias Twotter.Accounts
++  alias Auth.Cache
++
++  def check_password(%User{} = user, password) do
++    Argon2.checkpw(password, user.password)
++  end
++
++  def insert_token(token, id) do
++    Cache.set(token, id)
++  end
++
++  def get_token_info(token) do
++    case Cache.get(token) do
++      nil -> {:error, "Token not found"}
++      id -> {:ok, id}
++    end
++  end
++
++  def get_token_info(token, :db) do
++    case Cache.get(token) do
++      nil -> {:error, "Token not found"}
++      id ->
++       case Accounts.get_user(id) do
++         nil -> {:error, "User not found"}
++         user -> {:ok, user}
++       end
++    end
++  end
++
++  def login(username, password) do
++    case Accounts.get_user_by_username(username) do
++      nil ->
++        Argon2.dummy_checkpw()
++        {:error, "User not found"}
++      user ->
++      case check_password(user, password) do
++        true ->
++          uuid = user_uuid()
++          insert_token(uuid, user.id)
++          {:ok, uuid}
++        false -> {:error, "Password incorrect"}
++      end
++    end
++  end
++
++  def user_uuid() do
++    UUID.uuid4()
++  end
++end
+\ No newline at end of file
+diff --git a/lib/twotter/accounts/user.ex b/lib/twotter/accounts/user.ex
+new file mode 100644
+index 0000000..788319f
+--- /dev/null
++++ b/lib/twotter/accounts/user.ex
+@@ -0,0 +1,30 @@
++defmodule Twotter.Accounts.User do
++  use Ecto.Schema
++  import Ecto.Changeset
++  alias Comeonin.Argon2
++
++  schema "users" do
++    field :username, :string
++    field :password, :string
++    field :password_unhashed, :string, virtual: true
++    timestamps()
++  end
++
++  @doc false
++  def changeset(user, attrs) do
++    user
++    |> cast(attrs, [:username, :password_unhashed])
++    |> validate_required([:username, :password_unhashed])
++    |> validate_length(:password_unhashed, max: 1024, min: 3)
++    |> validate_length(:username, max: 30, min: 1)
++    |> unique_constraint(:username)
++    |> hash_password
++  end
++
++  def hash_password(changeset) do
++    password_unhashed = get_field(changeset, :password_unhashed)
++    hashed_password = Argon2.hashpwsalt(password_unhashed)
++    changeset
++    |> put_change(:password, hashed_password)
++  end
++end
+diff --git a/lib/twotter/application.ex b/lib/twotter/application.ex
+new file mode 100644
+index 0000000..bf5f6ac
+--- /dev/null
++++ b/lib/twotter/application.ex
+@@ -0,0 +1,32 @@
++defmodule Twotter.Application do
++  # See https://hexdocs.pm/elixir/Application.html
++  # for more information on OTP Applications
++  @moduledoc false
++
++  use Application
++
++  def start(_type, _args) do
++    # List all child processes to be supervised
++    children = [
++      # Start the Ecto repository
++      Twotter.Repo,
++      # Start the endpoint when the application starts
++      TwotterWeb.Endpoint,
++      {Auth.Cache, []}
++      # Starts a worker by calling: Twotter.Worker.start_link(arg)
++      # {Twotter.Worker, arg},
++    ]
++
++    # See https://hexdocs.pm/elixir/Supervisor.html
++    # for other strategies and supported options
++    opts = [strategy: :one_for_one, name: Twotter.Supervisor]
++    Supervisor.start_link(children, opts)
++  end
++
++  # Tell Phoenix to update the endpoint configuration
++  # whenever the application is updated.
++  def config_change(changed, _new, removed) do
++    TwotterWeb.Endpoint.config_change(changed, removed)
++    :ok
++  end
++end
+diff --git a/lib/twotter/repo.ex b/lib/twotter/repo.ex
+new file mode 100644
+index 0000000..e007137
+--- /dev/null
++++ b/lib/twotter/repo.ex
+@@ -0,0 +1,5 @@
++defmodule Twotter.Repo do
++  use Ecto.Repo,
++    otp_app: :twotter,
++    adapter: Ecto.Adapters.Postgres
++end
+diff --git a/lib/twotter/twoots/twoot.ex b/lib/twotter/twoots/twoot.ex
+new file mode 100644
+index 0000000..147303d
+--- /dev/null
++++ b/lib/twotter/twoots/twoot.ex
+@@ -0,0 +1,23 @@
++defmodule Twotter.Twoots.Twoot do
++  use Ecto.Schema
++  import Ecto.Changeset
++
++  alias Twotter.Accounts.User
++
++
++  schema "twoots" do
++    field :body, :string
++
++    belongs_to :user, User
++
++    timestamps()
++  end
++
++  @doc false
++  def changeset(twoot, attrs) do
++    twoot
++    |> cast(attrs, [:body, :user_id])
++    |> validate_required([:body, :user_id])
++    |> assoc_constraint(:user)
++  end
++end
+diff --git a/lib/twotter/twoots/twoots.ex b/lib/twotter/twoots/twoots.ex
+new file mode 100644
+index 0000000..13c5a01
+--- /dev/null
++++ b/lib/twotter/twoots/twoots.ex
+@@ -0,0 +1,104 @@
++defmodule Twotter.Twoots do
++  @moduledoc """
++  The Twoots context.
++  """
++
++  import Ecto.Query, warn: false
++  alias Twotter.Repo
++
++  alias Twotter.Twoots.Twoot
++
++  @doc """
++  Returns the list of twoots.
++
++  ## Examples
++
++      iex> list_twoots()
++      [%Twoot{}, ...]
++
++  """
++  def list_twoots do
++    Repo.all(Twoot)
++  end
++
++  @doc """
++  Gets a single twoot.
++
++  Raises `Ecto.NoResultsError` if the Twoot does not exist.
++
++  ## Examples
++
++      iex> get_twoot!(123)
++      %Twoot{}
++
++      iex> get_twoot!(456)
++      ** (Ecto.NoResultsError)
++
++  """
++  def get_twoot!(id), do: Repo.get!(Twoot, id)
++
++  @doc """
++  Creates a twoot.
++
++  ## Examples
++
++      iex> create_twoot(%{field: value})
++      {:ok, %Twoot{}}
++
++      iex> create_twoot(%{field: bad_value})
++      {:error, %Ecto.Changeset{}}
++
++  """
++  def create_twoot(attrs \\ %{}) do
++    %Twoot{}
++    |> Twoot.changeset(attrs)
++    |> Repo.insert()
++  end
++
++  @doc """
++  Updates a twoot.
++
++  ## Examples
++
++      iex> update_twoot(twoot, %{field: new_value})
++      {:ok, %Twoot{}}
++
++      iex> update_twoot(twoot, %{field: bad_value})
++      {:error, %Ecto.Changeset{}}
++
++  """
++  def update_twoot(%Twoot{} = twoot, attrs) do
++    twoot
++    |> Twoot.changeset(attrs)
++    |> Repo.update()
++  end
++
++  @doc """
++  Deletes a Twoot.
++
++  ## Examples
++
++      iex> delete_twoot(twoot)
++      {:ok, %Twoot{}}
++
++      iex> delete_twoot(twoot)
++      {:error, %Ecto.Changeset{}}
++
++  """
++  def delete_twoot(%Twoot{} = twoot) do
++    Repo.delete(twoot)
++  end
++
++  @doc """
++  Returns an `%Ecto.Changeset{}` for tracking twoot changes.
++
++  ## Examples
++
++      iex> change_twoot(twoot)
++      %Ecto.Changeset{source: %Twoot{}}
++
++  """
++  def change_twoot(%Twoot{} = twoot) do
++    Twoot.changeset(twoot, %{})
++  end
++end
+diff --git a/lib/twotter_web.ex b/lib/twotter_web.ex
+new file mode 100644
+index 0000000..c02392a
+--- /dev/null
++++ b/lib/twotter_web.ex
+@@ -0,0 +1,66 @@
++defmodule TwotterWeb do
++  @moduledoc """
++  The entrypoint for defining your web interface, such
++  as controllers, views, channels and so on.
++
++  This can be used in your application as:
++
++      use TwotterWeb, :controller
++      use TwotterWeb, :view
++
++  The definitions below will be executed for every view,
++  controller, etc, so keep them short and clean, focused
++  on imports, uses and aliases.
++
++  Do NOT define functions inside the quoted expressions
++  below. Instead, define any helper function in modules
++  and import those modules here.
++  """
++
++  def controller do
++    quote do
++      use Phoenix.Controller, namespace: TwotterWeb
++
++      import Plug.Conn
++      import TwotterWeb.Gettext
++      alias TwotterWeb.Router.Helpers, as: Routes
++    end
++  end
++
++  def view do
++    quote do
++      use Phoenix.View,
++        root: "lib/twotter_web/templates",
++        namespace: TwotterWeb
++
++      # Import convenience functions from controllers
++      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
++
++      import TwotterWeb.ErrorHelpers
++      import TwotterWeb.Gettext
++      alias TwotterWeb.Router.Helpers, as: Routes
++    end
++  end
++
++  def router do
++    quote do
++      use Phoenix.Router
++      import Plug.Conn
++      import Phoenix.Controller
++    end
++  end
++
++  def channel do
++    quote do
++      use Phoenix.Channel
++      import TwotterWeb.Gettext
++    end
++  end
++
++  @doc """
++  When used, dispatch to the appropriate controller/view/etc.
++  """
++  defmacro __using__(which) when is_atom(which) do
++    apply(__MODULE__, which, [])
++  end
++end
+diff --git a/lib/twotter_web/channels/user_socket.ex b/lib/twotter_web/channels/user_socket.ex
+new file mode 100644
+index 0000000..7937a6e
+--- /dev/null
++++ b/lib/twotter_web/channels/user_socket.ex
+@@ -0,0 +1,33 @@
++defmodule TwotterWeb.UserSocket do
++  use Phoenix.Socket
++
++  ## Channels
++  # channel "room:*", TwotterWeb.RoomChannel
++
++  # Socket params are passed from the client and can
++  # be used to verify and authenticate a user. After
++  # verification, you can put default assigns into
++  # the socket that will be set for all channels, ie
++  #
++  #     {:ok, assign(socket, :user_id, verified_user_id)}
++  #
++  # To deny connection, return `:error`.
++  #
++  # See `Phoenix.Token` documentation for examples in
++  # performing token verification on connect.
++  def connect(_params, socket, _connect_info) do
++    {:ok, socket}
++  end
++
++  # Socket id's are topics that allow you to identify all sockets for a given user:
++  #
++  #     def id(socket), do: "user_socket:#{socket.assigns.user_id}"
++  #
++  # Would allow you to broadcast a "disconnect" event and terminate
++  # all active sockets and channels for a given user:
++  #
++  #     TwotterWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
++  #
++  # Returning `nil` makes this socket anonymous.
++  def id(_socket), do: nil
++end
+diff --git a/lib/twotter_web/endpoint.ex b/lib/twotter_web/endpoint.ex
+new file mode 100644
+index 0000000..cd09196
+--- /dev/null
++++ b/lib/twotter_web/endpoint.ex
+@@ -0,0 +1,44 @@
++defmodule TwotterWeb.Endpoint do
++  use Phoenix.Endpoint, otp_app: :twotter
++
++  socket "/socket", TwotterWeb.UserSocket,
++    websocket: true,
++    longpoll: false
++
++  # Serve at "/" the static files from "priv/static" directory.
++  #
++  # You should set gzip to true if you are running phx.digest
++  # when deploying your static files in production.
++  plug Plug.Static,
++    at: "/",
++    from: :twotter,
++    gzip: false,
++    only: ~w(css fonts images js favicon.ico robots.txt)
++
++  # Code reloading can be explicitly enabled under the
++  # :code_reloader configuration of your endpoint.
++  if code_reloading? do
++    plug Phoenix.CodeReloader
++  end
++
++  plug Plug.RequestId
++  plug Plug.Logger
++
++  plug Plug.Parsers,
++    parsers: [:urlencoded, :multipart, :json],
++    pass: ["*/*"],
++    json_decoder: Phoenix.json_library()
++
++  plug Plug.MethodOverride
++  plug Plug.Head
++
++  # The session will be stored in the cookie and signed,
++  # this means its contents can be read but not tampered with.
++  # Set :encryption_salt if you would also like to encrypt it.
++  plug Plug.Session,
++    store: :cookie,
++    key: "_twotter_key",
++    signing_salt: "3JpiXuNw"
++
++  plug TwotterWeb.Router
++end
+diff --git a/lib/twotter_web/gettext.ex b/lib/twotter_web/gettext.ex
+new file mode 100644
+index 0000000..8184bbf
+--- /dev/null
++++ b/lib/twotter_web/gettext.ex
+@@ -0,0 +1,24 @@
++defmodule TwotterWeb.Gettext do
++  @moduledoc """
++  A module providing Internationalization with a gettext-based API.
++
++  By using [Gettext](https://hexdocs.pm/gettext),
++  your module gains a set of macros for translations, for example:
++
++      import TwotterWeb.Gettext
++
++      # Simple translation
++      gettext("Here is the string to translate")
++
++      # Plural translation
++      ngettext("Here is the string to translate",
++               "Here are the strings to translate",
++               3)
++
++      # Domain-based translation
++      dgettext("errors", "Here is the error message to translate")
++
++  See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
++  """
++  use Gettext, otp_app: :twotter
++end
+diff --git a/lib/twotter_web/router.ex b/lib/twotter_web/router.ex
+new file mode 100644
+index 0000000..12af81a
+--- /dev/null
++++ b/lib/twotter_web/router.ex
+@@ -0,0 +1,11 @@
++defmodule TwotterWeb.Router do
++  use TwotterWeb, :router
++
++  pipeline :api do
++    plug :accepts, ["json"]
++  end
++
++  scope "/api", TwotterWeb do
++    pipe_through :api
++  end
++end
+diff --git a/lib/twotter_web/views/error_helpers.ex b/lib/twotter_web/views/error_helpers.ex
+new file mode 100644
+index 0000000..5a7001a
+--- /dev/null
++++ b/lib/twotter_web/views/error_helpers.ex
+@@ -0,0 +1,33 @@
++defmodule TwotterWeb.ErrorHelpers do
++  @moduledoc """
++  Conveniences for translating and building error messages.
++  """
++
++  @doc """
++  Translates an error message using gettext.
++  """
++  def translate_error({msg, opts}) do
++    # When using gettext, we typically pass the strings we want
++    # to translate as a static argument:
++    #
++    #     # Translate "is invalid" in the "errors" domain
++    #     dgettext("errors", "is invalid")
++    #
++    #     # Translate the number of files with plural rules
++    #     dngettext("errors", "1 file", "%{count} files", count)
++    #
++    # Because the error messages we show in our forms and APIs
++    # are defined inside Ecto, we need to translate them dynamically.
++    # This requires us to call the Gettext module passing our gettext
++    # backend as first argument.
++    #
++    # Note we use the "errors" domain, which means translations
++    # should be written to the errors.po file. The :count option is
++    # set by Ecto and indicates we should also apply plural rules.
++    if count = opts[:count] do
++      Gettext.dngettext(TwotterWeb.Gettext, "errors", msg, msg, count, opts)
++    else
++      Gettext.dgettext(TwotterWeb.Gettext, "errors", msg, opts)
++    end
++  end
++end
+diff --git a/lib/twotter_web/views/error_view.ex b/lib/twotter_web/views/error_view.ex
+new file mode 100644
+index 0000000..0eba90d
+--- /dev/null
++++ b/lib/twotter_web/views/error_view.ex
+@@ -0,0 +1,16 @@
++defmodule TwotterWeb.ErrorView do
++  use TwotterWeb, :view
++
++  # If you want to customize a particular status code
++  # for a certain format, you may uncomment below.
++  # def render("500.json", _assigns) do
++  #   %{errors: %{detail: "Internal Server Error"}}
++  # end
++
++  # By default, Phoenix returns the status message from
++  # the template name. For example, "404.json" becomes
++  # "Not Found".
++  def template_not_found(template, _assigns) do
++    %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
++  end
++end
+diff --git a/mix.exs b/mix.exs
+new file mode 100644
+index 0000000..98650de
+--- /dev/null
++++ b/mix.exs
+@@ -0,0 +1,64 @@
++defmodule Twotter.MixProject do
++  use Mix.Project
++
++  def project do
++    [
++      app: :twotter,
++      version: "0.1.0",
++      elixir: "~> 1.5",
++      elixirc_paths: elixirc_paths(Mix.env()),
++      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
++      start_permanent: Mix.env() == :prod,
++      aliases: aliases(),
++      deps: deps()
++    ]
++  end
++
++  # Configuration for the OTP application.
++  #
++  # Type `mix help compile.app` for more information.
++  def application do
++    [
++      mod: {Twotter.Application, []},
++      extra_applications: [:logger, :runtime_tools]
++    ]
++  end
++
++  # Specifies which paths to compile per environment.
++  defp elixirc_paths(:test), do: ["lib", "test/support"]
++  defp elixirc_paths(_), do: ["lib"]
++
++  # Specifies your project dependencies.
++  #
++  # Type `mix help deps` for examples and options.
++  defp deps do
++    [
++      {:phoenix, "~> 1.4.0"},
++      {:phoenix_pubsub, "~> 1.1"},
++      {:phoenix_ecto, "~> 4.0"},
++      {:ecto_sql, "~> 3.0"},
++      {:postgrex, ">= 0.0.0"},
++      {:gettext, "~> 0.11"},
++      {:jason, "~> 1.0"},
++      {:plug_cowboy, "~> 2.0"},
++      {:comeonin, "~> 4.1"},
++      {:argon2_elixir, "~> 1.3"},
++      {:elixir_uuid, "~> 1.2"},
++      {:nebulex, "~> 1.0"}
++    ]
++  end
++
++  # Aliases are shortcuts or tasks specific to the current project.
++  # For example, to create, migrate and run the seeds file at once:
++  #
++  #     $ mix ecto.setup
++  #
++  # See the documentation for `Mix` for more info on aliases.
++  defp aliases do
++    [
++      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
++      "ecto.reset": ["ecto.drop", "ecto.setup"],
++      test: ["ecto.create --quiet", "ecto.migrate", "test"]
++    ]
++  end
++end
+diff --git a/mix.lock b/mix.lock
+new file mode 100644
+index 0000000..b1f87f3
+--- /dev/null
++++ b/mix.lock
+@@ -0,0 +1,27 @@
++%{
++  "argon2_elixir": {:hex, :argon2_elixir, "1.3.3", "487ffa071ef78c51d9b16e50ff3cf30cf8204e0aa4bdc8afd3765fdd8195e213", [:make, :mix], [{:elixir_make, "~> 0.4", [hex: :elixir_make, repo: "hexpm", optional: false]}], "hexpm"},
++  "comeonin": {:hex, :comeonin, "4.1.1", "c7304fc29b45b897b34142a91122bc72757bc0c295e9e824999d5179ffc08416", [:mix], [{:argon2_elixir, "~> 1.2", [hex: :argon2_elixir, repo: "hexpm", optional: true]}, {:bcrypt_elixir, "~> 0.12.1 or ~> 1.0", [hex: :bcrypt_elixir, repo: "hexpm", optional: true]}, {:pbkdf2_elixir, "~> 0.12", [hex: :pbkdf2_elixir, repo: "hexpm", optional: true]}], "hexpm"},
++  "connection": {:hex, :connection, "1.0.4", "a1cae72211f0eef17705aaededacac3eb30e6625b04a6117c1b2db6ace7d5976", [:mix], [], "hexpm"},
++  "cowboy": {:hex, :cowboy, "2.6.1", "f2e06f757c337b3b311f9437e6e072b678fcd71545a7b2865bdaa154d078593f", [:rebar3], [{:cowlib, "~> 2.7.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.7.1", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
++  "cowlib": {:hex, :cowlib, "2.7.0", "3ef16e77562f9855a2605900cedb15c1462d76fb1be6a32fc3ae91973ee543d2", [:rebar3], [], "hexpm"},
++  "db_connection": {:hex, :db_connection, "2.0.3", "b4e8aa43c100e16f122ccd6798cd51c48c79fd391c39d411f42b3cd765daccb0", [:mix], [{:connection, "~> 1.0.2", [hex: :connection, repo: "hexpm", optional: false]}], "hexpm"},
++  "decimal": {:hex, :decimal, "1.6.0", "bfd84d90ff966e1f5d4370bdd3943432d8f65f07d3bab48001aebd7030590dcc", [:mix], [], "hexpm"},
++  "ecto": {:hex, :ecto, "3.0.5", "bf9329b56f781a67fdb19e92e6d9ed79c5c8b31d41653b79dafb7ceddfbe87e0", [:mix], [{:decimal, "~> 1.6", [hex: :decimal, repo: "hexpm", optional: false]}, {:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: true]}, {:poison, "~> 2.2 or ~> 3.0", [hex: :poison, repo: "hexpm", optional: true]}], "hexpm"},
++  "ecto_sql": {:hex, :ecto_sql, "3.0.3", "dd17f2401a69bb2ec91d5564bd259ad0bc63ee32c2cb2e616d04f1559801dba6", [:mix], [{:db_connection, "~> 2.0", [hex: :db_connection, repo: "hexpm", optional: false]}, {:ecto, "~> 3.0.4", [hex: :ecto, repo: "hexpm", optional: false]}, {:mariaex, "~> 0.9.1", [hex: :mariaex, repo: "hexpm", optional: true]}, {:postgrex, "~> 0.14.0", [hex: :postgrex, repo: "hexpm", optional: true]}, {:telemetry, "~> 0.2.0", [hex: :telemetry, repo: "hexpm", optional: false]}], "hexpm"},
++  "elixir_make": {:hex, :elixir_make, "0.4.2", "332c649d08c18bc1ecc73b1befc68c647136de4f340b548844efc796405743bf", [:mix], [], "hexpm"},
++  "elixir_uuid": {:hex, :elixir_uuid, "1.2.0", "ff26e938f95830b1db152cb6e594d711c10c02c6391236900ddd070a6b01271d", [:mix], [], "hexpm"},
++  "gettext": {:hex, :gettext, "0.16.1", "e2130b25eebcbe02bb343b119a07ae2c7e28bd4b146c4a154da2ffb2b3507af2", [:mix], [], "hexpm"},
++  "jason": {:hex, :jason, "1.1.2", "b03dedea67a99223a2eaf9f1264ce37154564de899fd3d8b9a21b1a6fd64afe7", [:mix], [{:decimal, "~> 1.0", [hex: :decimal, repo: "hexpm", optional: true]}], "hexpm"},
++  "mime": {:hex, :mime, "1.3.1", "30ce04ab3175b6ad0bdce0035cba77bba68b813d523d1aac73d9781b4d193cf8", [:mix], [], "hexpm"},
++  "nebulex": {:hex, :nebulex, "1.0.0", "6d331f2711e8c318cace41759c97fb8f9c1424abaac8dd1e1ca78a54ce9215b2", [:mix], [{:shards, "~> 0.6", [hex: :shards, repo: "hexpm", optional: false]}], "hexpm"},
++  "phoenix": {:hex, :phoenix, "1.4.0", "56fe9a809e0e735f3e3b9b31c1b749d4b436e466d8da627b8d82f90eaae714d2", [:mix], [{:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: true]}, {:phoenix_pubsub, "~> 1.1", [hex: :phoenix_pubsub, repo: "hexpm", optional: false]}, {:plug, "~> 1.7", [hex: :plug, repo: "hexpm", optional: false]}, {:plug_cowboy, "~> 1.0 or ~> 2.0", [hex: :plug_cowboy, repo: "hexpm", optional: true]}], "hexpm"},
++  "phoenix_ecto": {:hex, :phoenix_ecto, "4.0.0", "c43117a136e7399ea04ecaac73f8f23ee0ffe3e07acfcb8062fe5f4c9f0f6531", [:mix], [{:ecto, "~> 3.0", [hex: :ecto, repo: "hexpm", optional: false]}, {:phoenix_html, "~> 2.9", [hex: :phoenix_html, repo: "hexpm", optional: true]}, {:plug, "~> 1.0", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
++  "phoenix_pubsub": {:hex, :phoenix_pubsub, "1.1.1", "6668d787e602981f24f17a5fbb69cc98f8ab085114ebfac6cc36e10a90c8e93c", [:mix], [], "hexpm"},
++  "plug": {:hex, :plug, "1.7.1", "8516d565fb84a6a8b2ca722e74e2cd25ca0fc9d64f364ec9dbec09d33eb78ccd", [:mix], [{:mime, "~> 1.0", [hex: :mime, repo: "hexpm", optional: false]}, {:plug_crypto, "~> 1.0", [hex: :plug_crypto, repo: "hexpm", optional: false]}], "hexpm"},
++  "plug_cowboy": {:hex, :plug_cowboy, "2.0.0", "ab0c92728f2ba43c544cce85f0f220d8d30fc0c90eaa1e6203683ab039655062", [:mix], [{:cowboy, "~> 2.5", [hex: :cowboy, repo: "hexpm", optional: false]}, {:plug, "~> 1.7", [hex: :plug, repo: "hexpm", optional: false]}], "hexpm"},
++  "plug_crypto": {:hex, :plug_crypto, "1.0.0", "18e49317d3fa343f24620ed22795ec29d4a5e602d52d1513ccea0b07d8ea7d4d", [:mix], [], "hexpm"},
++  "postgrex": {:hex, :postgrex, "0.14.1", "63247d4a5ad6b9de57a0bac5d807e1c32d41e39c04b8a4156a26c63bcd8a2e49", [:mix], [{:connection, "~> 1.0", [hex: :connection, repo: "hexpm", optional: false]}, {:db_connection, "~> 2.0", [hex: :db_connection, repo: "hexpm", optional: false]}, {:decimal, "~> 1.5", [hex: :decimal, repo: "hexpm", optional: false]}, {:jason, "~> 1.0", [hex: :jason, repo: "hexpm", optional: true]}], "hexpm"},
++  "ranch": {:hex, :ranch, "1.7.1", "6b1fab51b49196860b733a49c07604465a47bdb78aa10c1c16a3d199f7f8c881", [:rebar3], [], "hexpm"},
++  "shards": {:hex, :shards, "0.6.0", "678d292ad74a4598a872930f9b12251f43e97f6050287f1fb712fbfd3d282f75", [:make, :rebar3], [], "hexpm"},
++  "telemetry": {:hex, :telemetry, "0.2.0", "5b40caa3efe4deb30fb12d7cd8ed4f556f6d6bd15c374c2366772161311ce377", [:mix], [], "hexpm"},
++}
+diff --git a/priv/gettext/en/LC_MESSAGES/errors.po b/priv/gettext/en/LC_MESSAGES/errors.po
+new file mode 100644
+index 0000000..a589998
+--- /dev/null
++++ b/priv/gettext/en/LC_MESSAGES/errors.po
+@@ -0,0 +1,97 @@
++## `msgid`s in this file come from POT (.pot) files.
++##
++## Do not add, change, or remove `msgid`s manually here as
++## they're tied to the ones in the corresponding POT file
++## (with the same domain).
++##
++## Use `mix gettext.extract --merge` or `mix gettext.merge`
++## to merge POT files into PO files.
++msgid ""
++msgstr ""
++"Language: en\n"
++
++## From Ecto.Changeset.cast/4
++msgid "can't be blank"
++msgstr ""
++
++## From Ecto.Changeset.unique_constraint/3
++msgid "has already been taken"
++msgstr ""
++
++## From Ecto.Changeset.put_change/3
++msgid "is invalid"
++msgstr ""
++
++## From Ecto.Changeset.validate_acceptance/3
++msgid "must be accepted"
++msgstr ""
++
++## From Ecto.Changeset.validate_format/3
++msgid "has invalid format"
++msgstr ""
++
++## From Ecto.Changeset.validate_subset/3
++msgid "has an invalid entry"
++msgstr ""
++
++## From Ecto.Changeset.validate_exclusion/3
++msgid "is reserved"
++msgstr ""
++
++## From Ecto.Changeset.validate_confirmation/3
++msgid "does not match confirmation"
++msgstr ""
++
++## From Ecto.Changeset.no_assoc_constraint/3
++msgid "is still associated with this entry"
++msgstr ""
++
++msgid "are still associated with this entry"
++msgstr ""
++
++## From Ecto.Changeset.validate_length/3
++msgid "should be %{count} character(s)"
++msgid_plural "should be %{count} character(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should have %{count} item(s)"
++msgid_plural "should have %{count} item(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should be at least %{count} character(s)"
++msgid_plural "should be at least %{count} character(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should have at least %{count} item(s)"
++msgid_plural "should have at least %{count} item(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should be at most %{count} character(s)"
++msgid_plural "should be at most %{count} character(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should have at most %{count} item(s)"
++msgid_plural "should have at most %{count} item(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++## From Ecto.Changeset.validate_number/3
++msgid "must be less than %{number}"
++msgstr ""
++
++msgid "must be greater than %{number}"
++msgstr ""
++
++msgid "must be less than or equal to %{number}"
++msgstr ""
++
++msgid "must be greater than or equal to %{number}"
++msgstr ""
++
++msgid "must be equal to %{number}"
++msgstr ""
+diff --git a/priv/gettext/errors.pot b/priv/gettext/errors.pot
+new file mode 100644
+index 0000000..39a220b
+--- /dev/null
++++ b/priv/gettext/errors.pot
+@@ -0,0 +1,95 @@
++## This is a PO Template file.
++##
++## `msgid`s here are often extracted from source code.
++## Add new translations manually only if they're dynamic
++## translations that can't be statically extracted.
++##
++## Run `mix gettext.extract` to bring this file up to
++## date. Leave `msgstr`s empty as changing them here has no
++## effect: edit them in PO (`.po`) files instead.
++
++## From Ecto.Changeset.cast/4
++msgid "can't be blank"
++msgstr ""
++
++## From Ecto.Changeset.unique_constraint/3
++msgid "has already been taken"
++msgstr ""
++
++## From Ecto.Changeset.put_change/3
++msgid "is invalid"
++msgstr ""
++
++## From Ecto.Changeset.validate_acceptance/3
++msgid "must be accepted"
++msgstr ""
++
++## From Ecto.Changeset.validate_format/3
++msgid "has invalid format"
++msgstr ""
++
++## From Ecto.Changeset.validate_subset/3
++msgid "has an invalid entry"
++msgstr ""
++
++## From Ecto.Changeset.validate_exclusion/3
++msgid "is reserved"
++msgstr ""
++
++## From Ecto.Changeset.validate_confirmation/3
++msgid "does not match confirmation"
++msgstr ""
++
++## From Ecto.Changeset.no_assoc_constraint/3
++msgid "is still associated with this entry"
++msgstr ""
++
++msgid "are still associated with this entry"
++msgstr ""
++
++## From Ecto.Changeset.validate_length/3
++msgid "should be %{count} character(s)"
++msgid_plural "should be %{count} character(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should have %{count} item(s)"
++msgid_plural "should have %{count} item(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should be at least %{count} character(s)"
++msgid_plural "should be at least %{count} character(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should have at least %{count} item(s)"
++msgid_plural "should have at least %{count} item(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should be at most %{count} character(s)"
++msgid_plural "should be at most %{count} character(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++msgid "should have at most %{count} item(s)"
++msgid_plural "should have at most %{count} item(s)"
++msgstr[0] ""
++msgstr[1] ""
++
++## From Ecto.Changeset.validate_number/3
++msgid "must be less than %{number}"
++msgstr ""
++
++msgid "must be greater than %{number}"
++msgstr ""
++
++msgid "must be less than or equal to %{number}"
++msgstr ""
++
++msgid "must be greater than or equal to %{number}"
++msgstr ""
++
++msgid "must be equal to %{number}"
++msgstr ""
+diff --git a/priv/repo/migrations/.formatter.exs b/priv/repo/migrations/.formatter.exs
+new file mode 100644
+index 0000000..49f9151
+--- /dev/null
++++ b/priv/repo/migrations/.formatter.exs
+@@ -0,0 +1,4 @@
++[
++  import_deps: [:ecto_sql],
++  inputs: ["*.exs"]
++]
+diff --git a/priv/repo/migrations/20181212104712_create_users.exs b/priv/repo/migrations/20181212104712_create_users.exs
+new file mode 100644
+index 0000000..1e7fba6
+--- /dev/null
++++ b/priv/repo/migrations/20181212104712_create_users.exs
+@@ -0,0 +1,13 @@
++defmodule Twotter.Repo.Migrations.CreateUsers do
++  use Ecto.Migration
++
++  def change do
++    create table(:users) do
++      add :username, :string
++
++      timestamps()
++    end
++
++    create unique_index(:users, [:username])
++  end
++end
+diff --git a/priv/repo/migrations/20181212105319_add_password_field_to_users_table.exs b/priv/repo/migrations/20181212105319_add_password_field_to_users_table.exs
+new file mode 100644
+index 0000000..04bf55c
+--- /dev/null
++++ b/priv/repo/migrations/20181212105319_add_password_field_to_users_table.exs
+@@ -0,0 +1,9 @@
++defmodule Twotter.Repo.Migrations.AddPasswordFieldToUsersTable do
++  use Ecto.Migration
++
++  def change do
++    alter table(:users) do
++      add :password, :string
++    end
++  end
++end
+diff --git a/priv/repo/migrations/20181212140522_create_twoots.exs b/priv/repo/migrations/20181212140522_create_twoots.exs
+new file mode 100644
+index 0000000..be626a2
+--- /dev/null
++++ b/priv/repo/migrations/20181212140522_create_twoots.exs
+@@ -0,0 +1,14 @@
++defmodule Twotter.Repo.Migrations.CreateTwoots do
++  use Ecto.Migration
++
++  def change do
++    create table(:twoots) do
++      add :body, :text
++      add :user_id, references(:users, on_delete: :nothing)
++
++      timestamps()
++    end
++
++    create index(:twoots, [:user_id])
++  end
++end
+diff --git a/priv/repo/seeds.exs b/priv/repo/seeds.exs
+new file mode 100644
+index 0000000..5b711d1
+--- /dev/null
++++ b/priv/repo/seeds.exs
+@@ -0,0 +1,11 @@
++# Script for populating the database. You can run it as:
++#
++#     mix run priv/repo/seeds.exs
++#
++# Inside the script, you can read and write to any of your
++# repositories directly:
++#
++#     Twotter.Repo.insert!(%Twotter.SomeSchema{})
++#
++# We recommend using the bang functions (`insert!`, `update!`
++# and so on) as they will fail if something goes wrong.
+diff --git a/test/support/channel_case.ex b/test/support/channel_case.ex
+new file mode 100644
+index 0000000..b4b161f
+--- /dev/null
++++ b/test/support/channel_case.ex
+@@ -0,0 +1,37 @@
++defmodule TwotterWeb.ChannelCase do
++  @moduledoc """
++  This module defines the test case to be used by
++  channel tests.
++
++  Such tests rely on `Phoenix.ChannelTest` and also
++  import other functionality to make it easier
++  to build common data structures and query the data layer.
++
++  Finally, if the test case interacts with the database,
++  it cannot be async. For this reason, every test runs
++  inside a transaction which is reset at the beginning
++  of the test unless the test case is marked as async.
++  """
++
++  use ExUnit.CaseTemplate
++
++  using do
++    quote do
++      # Import conveniences for testing with channels
++      use Phoenix.ChannelTest
++
++      # The default endpoint for testing
++      @endpoint TwotterWeb.Endpoint
++    end
++  end
++
++  setup tags do
++    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Twotter.Repo)
++
++    unless tags[:async] do
++      Ecto.Adapters.SQL.Sandbox.mode(Twotter.Repo, {:shared, self()})
++    end
++
++    :ok
++  end
++end
+diff --git a/test/support/conn_case.ex b/test/support/conn_case.ex
+new file mode 100644
+index 0000000..c5d4e42
+--- /dev/null
++++ b/test/support/conn_case.ex
+@@ -0,0 +1,38 @@
++defmodule TwotterWeb.ConnCase do
++  @moduledoc """
++  This module defines the test case to be used by
++  tests that require setting up a connection.
++
++  Such tests rely on `Phoenix.ConnTest` and also
++  import other functionality to make it easier
++  to build common data structures and query the data layer.
++
++  Finally, if the test case interacts with the database,
++  it cannot be async. For this reason, every test runs
++  inside a transaction which is reset at the beginning
++  of the test unless the test case is marked as async.
++  """
++
++  use ExUnit.CaseTemplate
++
++  using do
++    quote do
++      # Import conveniences for testing with connections
++      use Phoenix.ConnTest
++      alias TwotterWeb.Router.Helpers, as: Routes
++
++      # The default endpoint for testing
++      @endpoint TwotterWeb.Endpoint
++    end
++  end
++
++  setup tags do
++    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Twotter.Repo)
++
++    unless tags[:async] do
++      Ecto.Adapters.SQL.Sandbox.mode(Twotter.Repo, {:shared, self()})
++    end
++
++    {:ok, conn: Phoenix.ConnTest.build_conn()}
++  end
++end
+diff --git a/test/support/data_case.ex b/test/support/data_case.ex
+new file mode 100644
+index 0000000..bedb379
+--- /dev/null
++++ b/test/support/data_case.ex
+@@ -0,0 +1,53 @@
++defmodule Twotter.DataCase do
++  @moduledoc """
++  This module defines the setup for tests requiring
++  access to the application's data layer.
++
++  You may define functions here to be used as helpers in
++  your tests.
++
++  Finally, if the test case interacts with the database,
++  it cannot be async. For this reason, every test runs
++  inside a transaction which is reset at the beginning
++  of the test unless the test case is marked as async.
++  """
++
++  use ExUnit.CaseTemplate
++
++  using do
++    quote do
++      alias Twotter.Repo
++
++      import Ecto
++      import Ecto.Changeset
++      import Ecto.Query
++      import Twotter.DataCase
++    end
++  end
++
++  setup tags do
++    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Twotter.Repo)
++
++    unless tags[:async] do
++      Ecto.Adapters.SQL.Sandbox.mode(Twotter.Repo, {:shared, self()})
++    end
++
++    :ok
++  end
++
++  @doc """
++  A helper that transforms changeset errors into a map of messages.
++
++      assert {:error, changeset} = Accounts.create_user(%{password: "short"})
++      assert "password is too short" in errors_on(changeset).password
++      assert %{password: ["password is too short"]} = errors_on(changeset)
++
++  """
++  def errors_on(changeset) do
++    Ecto.Changeset.traverse_errors(changeset, fn {message, opts} ->
++      Enum.reduce(opts, message, fn {key, value}, acc ->
++        String.replace(acc, "%{#{key}}", to_string(value))
++      end)
++    end)
++  end
++end
+diff --git a/test/test_helper.exs b/test/test_helper.exs
+new file mode 100644
+index 0000000..49a244f
+--- /dev/null
++++ b/test/test_helper.exs
+@@ -0,0 +1,2 @@
++ExUnit.start()
++Ecto.Adapters.SQL.Sandbox.mode(Twotter.Repo, :manual)
+diff --git a/test/twotter/accounts/accounts_test.exs b/test/twotter/accounts/accounts_test.exs
+new file mode 100644
+index 0000000..9f86f14
+--- /dev/null
++++ b/test/twotter/accounts/accounts_test.exs
+@@ -0,0 +1,64 @@
++defmodule Twotter.AccountsTest do
++  use Twotter.DataCase
++
++  alias Twotter.Accounts
++
++  describe "users" do
++    alias Twotter.Accounts.User
++
++    @valid_attrs %{username: "some username"}
++    @update_attrs %{username: "some updated username"}
++    @invalid_attrs %{username: nil}
++
++    def user_fixture(attrs \\ %{}) do
++      {:ok, user} =
++        attrs
++        |> Enum.into(@valid_attrs)
++        |> Accounts.create_user()
++
++      user
++    end
++
++    test "list_users/0 returns all users" do
++      user = user_fixture()
++      assert Accounts.list_users() == [user]
++    end
++
++    test "get_user!/1 returns the user with given id" do
++      user = user_fixture()
++      assert Accounts.get_user!(user.id) == user
++    end
++
++    test "create_user/1 with valid data creates a user" do
++      assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
++      assert user.username == "some username"
++    end
++
++    test "create_user/1 with invalid data returns error changeset" do
++      assert {:error, %Ecto.Changeset{}} = Accounts.create_user(@invalid_attrs)
++    end
++
++    test "update_user/2 with valid data updates the user" do
++      user = user_fixture()
++      assert {:ok, %User{} = user} = Accounts.update_user(user, @update_attrs)
++      assert user.username == "some updated username"
++    end
++
++    test "update_user/2 with invalid data returns error changeset" do
++      user = user_fixture()
++      assert {:error, %Ecto.Changeset{}} = Accounts.update_user(user, @invalid_attrs)
++      assert user == Accounts.get_user!(user.id)
++    end
++
++    test "delete_user/1 deletes the user" do
++      user = user_fixture()
++      assert {:ok, %User{}} = Accounts.delete_user(user)
++      assert_raise Ecto.NoResultsError, fn -> Accounts.get_user!(user.id) end
++    end
++
++    test "change_user/1 returns a user changeset" do
++      user = user_fixture()
++      assert %Ecto.Changeset{} = Accounts.change_user(user)
++    end
++  end
++end
+diff --git a/test/twotter/twoots/twoots_test.exs b/test/twotter/twoots/twoots_test.exs
+new file mode 100644
+index 0000000..c8cb481
+--- /dev/null
++++ b/test/twotter/twoots/twoots_test.exs
+@@ -0,0 +1,64 @@
++defmodule Twotter.TwootsTest do
++  use Twotter.DataCase
++
++  alias Twotter.Twoots
++
++  describe "twoots" do
++    alias Twotter.Twoots.Twoot
++
++    @valid_attrs %{body: "some body"}
++    @update_attrs %{body: "some updated body"}
++    @invalid_attrs %{body: nil}
++
++    def twoot_fixture(attrs \\ %{}) do
++      {:ok, twoot} =
++        attrs
++        |> Enum.into(@valid_attrs)
++        |> Twoots.create_twoot()
++
++      twoot
++    end
++
++    test "list_twoots/0 returns all twoots" do
++      twoot = twoot_fixture()
++      assert Twoots.list_twoots() == [twoot]
++    end
++
++    test "get_twoot!/1 returns the twoot with given id" do
++      twoot = twoot_fixture()
++      assert Twoots.get_twoot!(twoot.id) == twoot
++    end
++
++    test "create_twoot/1 with valid data creates a twoot" do
++      assert {:ok, %Twoot{} = twoot} = Twoots.create_twoot(@valid_attrs)
++      assert twoot.body == "some body"
++    end
++
++    test "create_twoot/1 with invalid data returns error changeset" do
++      assert {:error, %Ecto.Changeset{}} = Twoots.create_twoot(@invalid_attrs)
++    end
++
++    test "update_twoot/2 with valid data updates the twoot" do
++      twoot = twoot_fixture()
++      assert {:ok, %Twoot{} = twoot} = Twoots.update_twoot(twoot, @update_attrs)
++      assert twoot.body == "some updated body"
++    end
++
++    test "update_twoot/2 with invalid data returns error changeset" do
++      twoot = twoot_fixture()
++      assert {:error, %Ecto.Changeset{}} = Twoots.update_twoot(twoot, @invalid_attrs)
++      assert twoot == Twoots.get_twoot!(twoot.id)
++    end
++
++    test "delete_twoot/1 deletes the twoot" do
++      twoot = twoot_fixture()
++      assert {:ok, %Twoot{}} = Twoots.delete_twoot(twoot)
++      assert_raise Ecto.NoResultsError, fn -> Twoots.get_twoot!(twoot.id) end
++    end
++
++    test "change_twoot/1 returns a twoot changeset" do
++      twoot = twoot_fixture()
++      assert %Ecto.Changeset{} = Twoots.change_twoot(twoot)
++    end
++  end
++end
+diff --git a/test/twotter_web/views/error_view_test.exs b/test/twotter_web/views/error_view_test.exs
+new file mode 100644
+index 0000000..c2e7520
+--- /dev/null
++++ b/test/twotter_web/views/error_view_test.exs
+@@ -0,0 +1,15 @@
++defmodule TwotterWeb.ErrorViewTest do
++  use TwotterWeb.ConnCase, async: true
++
++  # Bring render/3 and render_to_string/3 for testing custom views
++  import Phoenix.View
++
++  test "renders 404.json" do
++    assert render(TwotterWeb.ErrorView, "404.json", []) == %{errors: %{detail: "Not Found"}}
++  end
++
++  test "renders 500.json" do
++    assert render(TwotterWeb.ErrorView, "500.json", []) ==
++             %{errors: %{detail: "Internal Server Error"}}
++  end
++end
